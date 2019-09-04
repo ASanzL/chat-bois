@@ -75,8 +75,9 @@ const isAuthorized = async (req, res, next) => {
 
 const postMessage = (req, res) => {
     const message = new Message()
-    message.displayName = req.body.displayName
+    message.displayName = req.user.displayName
     message.message = req.body.message
+    console.log("poooooooooooooooost")
 
     message.save(function (err, user) {
         if (err) {

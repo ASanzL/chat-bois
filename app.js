@@ -7,7 +7,7 @@ const signup = require('./controllers/auth').signup;
 const login = require('./controllers/auth').login;
 const isAuthorized = require('./controllers/auth').isAuthorized;
 const usersRouter = require('./routes/users');
-const messageRouter = require('./routes/messages');
+const messageRouter = require('./controllers/auth').postMessage;
 const envVars = require('dotenv').config();
 const port = 3001;
 
