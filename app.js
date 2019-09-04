@@ -3,13 +3,17 @@ const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');      
 const mongoose = require('mongoose');
+const msgController = require('./controllers/messages').postSocketMessage;
 const signup = require('./controllers/auth').signup;
 const login = require('./controllers/auth').login;
 const isAuthorized = require('./controllers/auth').isAuthorized;
 const usersRouter = require('./routes/users');
-const messageRouter = require('./controllers/auth').postMessage;
+const messageRouter = require('./routes/messages');
 const envVars = require('dotenv').config();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 const port = 3001;
+const portSocket = 3002;
 
 if (envVars.error){
     console.log('error parsing environment variables')
@@ -28,4 +32,12 @@ app.use('/api', isAuthorized)
 app.use('/api/users', usersRouter);
 app.use('/api/messages', messageRouter);
 
-app.listen(port, console.log("Server started on port: " + port))
+io.on('connection', (socket) => {
+    msgController(socket);
+  });
+
+app.listen(port, console.log("Server started on port: " + port));
+
+http.listen(portSocket, function(){
+    console.log('listening on *: ' + portSocket);
+  });

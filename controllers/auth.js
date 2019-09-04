@@ -91,6 +91,7 @@ const postMessage = (req, res) => {
 }
 
 module.exports = {
+    verifyJWT: verifyJWT,
     signup: signup,
     login: login,
     isAuthorized: isAuthorized,
