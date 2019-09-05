@@ -38,6 +38,6 @@ io.on('connection', (socket) => {
 
 app.listen(port, console.log("Server started on port: " + port));
 
-http.listen(portSocket, function(){
+http.listen(portSocket, () => {
     console.log('listening on *: ' + portSocket);
   });

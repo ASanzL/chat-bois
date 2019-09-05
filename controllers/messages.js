@@ -22,7 +22,7 @@ const postSocketMessage = (socket, io) => {
                 const message = new MessageModel();
                 message.message = msg[1];
                 message.displayName = user.displayName;
-                //socket.broadcast.emit('chat message', message);
+                message.createdAt = Date.now();
                 io.emit('chat message', message);
              });
         })
