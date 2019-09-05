@@ -13,16 +13,17 @@ const getMessage = (req, res) => {
     })
 }
 
-const postSocketMessage = (socket) => {
+const postSocketMessage = (socket, io) => {
     console.log('a user connected');
-    socket.on('chat message', function(msg){
+    socket.on('chat message', (msg) => {
         verifyJWT(msg[0]).then(res => {
             console.log(res.id);
             UserModel.findById(res.id, (err, user) => {
                 const message = new MessageModel();
                 message.message = msg[1];
                 message.displayName = user.displayName;
-                socket.emit('chat message', message);
+                //socket.broadcast.emit('chat message', message);
+                io.emit('chat message', message);
              });
         })
 

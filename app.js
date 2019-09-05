@@ -33,7 +33,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/messages', messageRouter);
 
 io.on('connection', (socket) => {
-    msgController(socket);
+    msgController(socket, io);
   });
 
 app.listen(port, console.log("Server started on port: " + port));
