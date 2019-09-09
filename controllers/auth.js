@@ -1,6 +1,7 @@
-const User = require('../models/user.model')
+const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+const User = require('../models/user.model');
 const Message = require('../models/message.model');
-const jwt = require('jsonwebtoken')
 
 function createJWT(user) {
     return jwt.sign({ id: user.id }, process.env.JWT_DEV_ENV_SECRET, {
@@ -24,6 +25,13 @@ const signup = (req, res) => {
     user.password = req.body.password
     user.displayName = req.body.displayName
 
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        console.log(errors);
+        return res.status(422).json({ errors: errors.array() });
+    }
+    
     user.save(function (err, user) {
         if (err) {
             console.log(err)
@@ -77,13 +85,15 @@ const postMessage = (req, res) => {
     const message = new Message()
     message.displayName = req.user.displayName
     message.message = req.body.message
+    message.chatroom = req.body.chatroom
 
-    message.save(function (err, user) {
+    console.log(req.body);
+
+    message.save(function (err) {
         if (err) {
             console.log(err)
             return res.status(500).end()
         } else {
-            const signedJWT = createJWT(user)
             return res.status(201).send({ respond: "message sent" })
         }
     })

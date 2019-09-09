@@ -26,7 +26,6 @@ const postSocketMessage = (socket, io) => {
                 io.emit('chat message', message);
              });
         })
-
       });
 }
 
