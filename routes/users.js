@@ -9,7 +9,7 @@ router
   .delete(controllers.addUser)
 
 router
-.route('/:displayName')
+.route('/:id')
 .get(controllers.getUser)
 
 

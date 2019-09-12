@@ -8,8 +8,14 @@ const addUser = (req, res) => {
 }
 
 const getUser = (req, res) => {
-    console.log("salmiak")
-    if(req.params.displayName){
+    if(req.params.id){
+        console.log(req.params.id)
+        UserModel.findById(req.params.id).exec((err, doc) => {
+            console.log("doc" + doc)
+            res.send(doc);
+        })
+    }
+    else if(req.params.displayName){
         console.log(req.params)
         UserModel.findOne({displayName: req.params.displayName}).exec((err, doc) => {
             if(err)return handleError(err)
