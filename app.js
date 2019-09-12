@@ -11,6 +11,7 @@ const isAuthorized = require('./controllers/auth').isAuthorized;
 const usersRouter = require('./routes/users');
 const messageRouter = require('./routes/messages');
 const chatroomsRouter = require('./routes/chatrooms');
+const friendRouter = require('./routes/friend');
 const envVars = require('dotenv').config();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -43,6 +44,7 @@ app.use('/api', isAuthorized)
 app.use('/api/users', usersRouter);
 app.use('/api/messages', messageRouter);
 app.use('/api/chatrooms', chatroomsRouter);
+app.use('/api/friend', friendRouter);
 
 io.on('connection', (socket) => {
     msgController(socket, io);

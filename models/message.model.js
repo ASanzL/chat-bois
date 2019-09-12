@@ -23,10 +23,5 @@ const messageSchema = new mongoose.Schema(
 
 )
 
-messageSchema.pre('save', function(next) {
-    //check message
-    next();
-})
-
 const Message = mongoose.model('messages', messageSchema);
 module.exports = Message;
