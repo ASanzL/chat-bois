@@ -8,9 +8,17 @@ const addUser = (req, res) => {
 }
 
 const getUser = (req, res) => {
-    UserModel.find({}).exec((err, doc) => {
+    console.log("salmiak")
+    if(req.params.displayName){
+        console.log(req.params)
+        UserModel.findOne({displayName: req.params.displayName}).exec((err, doc) => {
+            if(err)return handleError(err)
+            res.send(doc);
+        })
+    }
+    else{UserModel.find({}).exec((err, doc) => {
         res.send(doc);
-    })
+    })}
 }
 
 module.exports = { addUser: addUser, getUser: getUser }

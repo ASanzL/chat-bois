@@ -8,4 +8,11 @@ router
   .put(controllers.addUser)
   .delete(controllers.addUser)
 
+router
+.route('/:displayName')
+.get(controllers.getUser)
+
+
+
+
   module.exports = router
