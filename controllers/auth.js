@@ -85,6 +85,7 @@ const postMessage = (req, res) => {
     const message = new Message()
     message.displayName = req.user.displayName
     message.message = req.body.message
+    console.log("chatroom" + req.body.chatroom)
     message.chatroom = req.body.chatroom
 
     console.log(req.body);

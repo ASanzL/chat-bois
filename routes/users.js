@@ -12,6 +12,10 @@ router
 .route('/:id')
 .get(controllers.getUser)
 
+router
+.route('/:id/:id2')
+.get(controllers.getUser)
+
 
 
 

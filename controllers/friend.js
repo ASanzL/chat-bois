@@ -1,5 +1,5 @@
 const FriendModel = require('../models/friend.model');
-const UserModel = require('../models/user.model')
+const UserModel = require('../models/user.model');
 
 const addFriend = (req, res) => {
     const Friend = FriendModel();

@@ -6,6 +6,11 @@ const chatroomSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true
+        },
+        chatMembers: {
+            type: Array,
+            required: true,
+            trim: true
         }
     },
     { timestamps: true }

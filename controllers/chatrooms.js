@@ -1,8 +1,11 @@
 const ChatroomModel = require('../models/chatrooms.model');
+const UserModel = require('../models/user.model');
 
 const createChatrooms = (req, res) => {
     const chatroom = new ChatroomModel();
-    chatroom.displayName = req.body.name;
+    chatroom.displayName = req.user.displayName + " - " + req.body.friend;
+    chatroom.chatMembers[0] = req.user.id;
+    chatroom.chatMembers[1] = req.body.friend;
 
     chatroom.save(function (err) {
         if (err) {

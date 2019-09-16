@@ -7,6 +7,11 @@ router
   .route('/')
   .get(controllers.getMessage)
   .post(postMsg)
-  //.delete(controllers.addUser)
+
+  router
+  .route('/:chatroom')
+  .get(controllers.getMessage)
+  .post(postMsg)
+
 
   module.exports = router

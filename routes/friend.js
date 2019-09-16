@@ -11,5 +11,6 @@ router
 router
 .route('/:displayName')
 .get(controllers.getFriends)
+.post(controllers.addFriend)
 
   module.exports = router
