@@ -1,6 +1,5 @@
 const MessageModel = require('../models/message.model');
 const UserModel = require('../models/user.model');
-const jwt = require('jsonwebtoken')
 const verifyJWT = require('../controllers/auth').verifyJWT;
 
 const postMessage = (req, res) => {
@@ -20,15 +19,14 @@ const getMessage = (req, res) => {
 }
 
 const socketMessage = (socket, io) => {
-    console.log('a user connected');
     socket.on('chat message', (msg) => {
-        verifyJWT(msg[0]).then(res => {
+        verifyJWT(msg.token).then(res => {
             UserModel.findById(res.id, (err, user) => {
                 const message = new MessageModel();
-                message.message = msg[1];
+                message.message = msg.message;
                 message.displayName = user.displayName;
                 message.createdAt = Date.now();
-                io.to(msg[2]).emit('chat message', message);
+                io.to(msg.chatroom).emit('chat message', message);
              });
         })
       });

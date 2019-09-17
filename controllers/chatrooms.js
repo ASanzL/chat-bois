@@ -1,5 +1,4 @@
 const ChatroomModel = require('../models/chatrooms.model');
-const UserModel = require('../models/user.model');
 
 const createChatrooms = (req, res) => {
     const chatroom = new ChatroomModel();
@@ -9,7 +8,6 @@ const createChatrooms = (req, res) => {
 
     chatroom.save(function (err) {
         if (err) {
-            console.log(err)
             return res.status(500).end()
         } else {
             return res.status(201).send({ respond: "chatroom created" })

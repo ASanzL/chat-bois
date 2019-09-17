@@ -18,8 +18,6 @@ const verifyJWT = token =>
 })
 
 const signup = (req, res) => {
-    //TODO Exercise - add input validation and error handling
-    console.log(req.body)
     const user = new User()
     user.email = req.body.email
     user.password = req.body.password
@@ -28,13 +26,11 @@ const signup = (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.log(errors);
         return res.status(422).json({ errors: errors.array() });
     }
     
     user.save(function (err, user) {
         if (err) {
-            console.log(err)
             return res.status(500).end()
         } else {
             const signedJWT = createJWT(user)
@@ -44,8 +40,6 @@ const signup = (req, res) => {
 }
 
 const login = async (req, res) => {
-    //TODO Exercise - add input validation and error handling
-
     const user = await User.findOne({ email: req.body.email }).exec()
     if (!user) {
         return res.status(400).send({ message: 'invalid combination' })
@@ -85,14 +79,10 @@ const postMessage = (req, res) => {
     const message = new Message()
     message.displayName = req.user.displayName
     message.message = req.body.message
-    console.log("chatroom" + req.body.chatroom)
     message.chatroom = req.body.chatroom
-
-    console.log(req.body);
 
     message.save(function (err) {
         if (err) {
-            console.log(err)
             return res.status(500).end()
         } else {
             return res.status(201).send({ respond: "message sent" })
